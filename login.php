@@ -32,14 +32,17 @@
     <div class="card-body">
       <h5 class="card-title">Login</h5>
       <p class="card-text">
+       <form>
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Email address</label>
-          <input type="email" class="form-control" placeholder="u1234567@utah.edu">
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Password</label>
-          <input type="password" class="form-control">
-        </div>            
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" placeholder="u1234567@utah.edu">
+            </div>
+            <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Password</label>
+            <input type="password" class="form-control">
+            </div>      
+       </form>
+       <p>New user? <a href="./personal-information/registerUser.php">Click here</a></p>      
       </p>
       <a href="./homepage.php" class="btn btn-primary">Login</a>
     </div>
