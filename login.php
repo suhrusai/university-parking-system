@@ -1,36 +1,3 @@
-<?php
-include_once 'dbConfig.php';
-include_once './authentication/hashPassword.php';
-if(isset($_SESSION['userCreatedMessage']))
-  $userCreatedMessage = $_SESSION['userCreatedMessage'];
-$error_message = isset($_SESSION['errorMessage']) ?  $_SESSION['errorMessage'] : null;
-unset($_SESSION['errorMessage']);
-unset($_SESSION['userCreatedMessage']);
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $stmt = $conn->prepare("SELECT * FROM driver WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    // print_r($result->fetch_assoc());
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
-        if (password_verify($password, $user['Password'])) {
-            $_SESSION['user_id'] = $user['Driver_ID']; 
-            $_SESSION['role'] = $user['Role'];
-            header("Location: homepage.php");
-            exit();
-        } else {
-            $error_message = "Invalid password.";
-        }
-    } else {
-        $error_message = "No user found with that email.";
-    }
-    $stmt->close();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,33 +27,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
   <div class="background-overlay"></div>
-  <div class="card" style="width: 24rem;">
+  <div class="card" style="width: 18rem;">
     <img src="assets/the-university-of-utah.jpg" class="card-img-top" alt="...">
     <div class="card-body">
-      <?php
-          if (isset($error_message)) {
-              echo '<div class="alert alert-danger" role="alert">' . $error_message . '</div>';
-          }
-          if (isset($userCreatedMessage)) {
-            echo '<div class="alert alert-success" role="alert">' . $userCreatedMessage . '</div>';
-          }
-        ?>
       <h5 class="card-title">Login</h5>
       <p class="card-text">
-       <form  method="POST">
+       <form>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" name="email" placeholder="u1234567@utah.edu">
+            <input type="email" class="form-control" placeholder="u1234567@utah.edu">
             </div>
             <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control">
+            <input type="password" class="form-control">
             </div>      
-
-          <p>New user? <a href="./personal-information/registerUser.php">Click here</a></p>      
-          </p>
-          <button href="./homepage.php" class="btn btn-primary" type="submit">Login</>
-      </form>
+       </form>
+       <p>New user? <a href="./personal-information/registerUser.php">Click here</a></p>      
+      </p>
+      <a href="./homepage.php" class="btn btn-primary">Login</a>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
