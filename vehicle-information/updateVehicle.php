@@ -1,4 +1,5 @@
 <?php
+$roles = Array("Admin","User","Faculty","Guest");
 include_once '../dbConfig.php';
 require_once "../authentication/isAuthenticated.php";
 checkAuthentication('../login.php');

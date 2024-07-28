@@ -1,7 +1,8 @@
 <?php
-    session_start();
-    require_once "./authentication/isAuthenticated.php";
-    checkAuthentication('login.php');
+  $roles = Array("Admin","User","Faculty","Guest");
+  session_start();
+  require_once "./authentication/isAuthenticated.php";
+  checkAuthentication('login.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,6 +93,7 @@
     </div>
   </div>
 
+  <?php if ($_SESSION['role'] == 'Admin') { ?>
   <div class="container card-section">
     <h2>Administrator</h2>
     <div class="row">
@@ -167,6 +169,7 @@
       </div>
     </div>
   </div>
+  <?php } ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

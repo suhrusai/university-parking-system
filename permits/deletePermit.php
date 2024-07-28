@@ -1,4 +1,5 @@
 <?php
+$roles = Array("Admin","User","Faculty","Guest");
 include_once '../dbConfig.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

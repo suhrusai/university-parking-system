@@ -1,4 +1,5 @@
 <?php
+$roles = Array("Admin","User","Faculty","Guest");
 include_once '../dbConfig.php';
 
 $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
