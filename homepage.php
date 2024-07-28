@@ -1,3 +1,7 @@
+<?php
+    require_once "./authentication/isAuthenticated.php";
+    checkAuthentication('login.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
