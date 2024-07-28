@@ -1,10 +1,7 @@
 <?php
+    session_start();
     require_once "./authentication/isAuthenticated.php";
-<<<<<<< HEAD
-    //checkAuthentication('login.php');
-=======
-    // checkAuthentication('login.php');
->>>>>>> 2745b06909a2c66bf731aaeb7dbf999be98bf3c1
+    checkAuthentication('login.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +60,7 @@
         </a>
       </div>
       <div class="col-md-4">
-        <a href="./vehicle-information/viewVehicles.php" class="card-link">
+        <a href="./vehicle-information/viewVehicle.php" class="card-link">
           <div class="card mb-3">
             <div class="card-body">
               <h5 class="card-title"><i class="bi bi-car-front card-icon"></i>Vehicle Information</h5>
@@ -73,7 +70,7 @@
         </a>
       </div>
       <div class="col-md-4">
-        <a href="./permit-information/viewPermits.php" class="card-link">
+        <a href="./permits/viewPermit.php" class="card-link">
           <div class="card mb-3">
             <div class="card-body">
               <h5 class="card-title"><i class="bi bi-card-checklist card-icon"></i>Permits</h5>
