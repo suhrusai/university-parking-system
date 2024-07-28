@@ -1,10 +1,6 @@
 <?php
     require_once "./authentication/isAuthenticated.php";
-<<<<<<< HEAD
-    //checkAuthentication('login.php');
-=======
     // checkAuthentication('login.php');
->>>>>>> 2745b06909a2c66bf731aaeb7dbf999be98bf3c1
 ?>
 <!DOCTYPE html>
 <html lang="en">
