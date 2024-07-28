@@ -38,8 +38,8 @@ require_once "../../authentication/isAuthenticated.php";
     <div class="container">
         <h2>Generate Reports</h2>
         <p><a href="violationsReport.php">Outstanding Violations</a></p>
-        <p>Report 2</p>
-        <p>Report 3</p>
+        <p><a href="violationsRevenue.php">Revenue from Violations</a></p>
+        <p><a href="permitsRevenue.php">Revenue from Permits</a></p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
