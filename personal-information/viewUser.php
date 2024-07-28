@@ -1,3 +1,17 @@
+<?php
+require_once "../dbConfig.php";
+require_once "../authentication/isAuthenticated.php";
+checkAuthentication('../login.php');
+$userId = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
+
+// Fetch user information from the database
+$stmt = $conn->prepare("SELECT first_name, last_name, address, email FROM driver WHERE driver_id = ?");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$stmt->bind_result($firstName, $lastName, $address, $email);
+$stmt->fetch();
+$stmt->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,14 +43,22 @@
         </div>
     </nav>
     <div class="container">
-        <p><b>First Name</b>: Sai Suhrut</p>
-        <p><b>Last Name</b>: Sala</p>
-        <p><b>Address </b>: Apt 293, 304S 700W, Salt lake city, Utah</p>
-        <p><b>Email</b>: suhrusai@gmail.com</p>
-        <form action="./deleteUser.php" method="POST">
-            <a class="btn btn-primary">Delete</a>
-        </form>
-
+        <h2>User Details</h2>
+        <p><b>First Name</b>: <?php echo htmlspecialchars($firstName); ?></p>
+        <p><b>Last Name</b>: <?php echo htmlspecialchars($lastName); ?></p>
+        <p><b>Address</b>: <?php echo htmlspecialchars($address); ?></p>
+        <p><b>Email</b>: <?php echo htmlspecialchars($email); ?></p>
+        <div class="d-flex">
+            <div>
+                <a class="btn btn-primary" href="./updateUser.php?user_id=<?php echo $userId; ?>">Update Details</a>
+            </div>
+            <div class="ml-2">
+                <form action="./deleteUser.php" method="POST">
+                    <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
