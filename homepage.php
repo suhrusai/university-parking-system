@@ -98,16 +98,6 @@
     <h2>Administrator</h2>
     <div class="row">
       <div class="col-md-4">
-        <a href="./admin/drivers/viewDrivers.php" class="card-link">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title"><i class="bi bi-people card-icon"></i>Drivers and Vehicles</h5>
-              <p class="card-text">View a list of drivers and their vehicles.</p>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-4">
         <a href="./admin/drivers/manageDrivers.php" class="card-link">
           <div class="card mb-3">
             <div class="card-body">
@@ -147,7 +137,7 @@
           </div>
         </a>
       </div>
-      <div class="col-md-4">
+      <!-- <div class="col-md-4">
         <a href="./admin/parking/manageParking.php" class="card-link">
           <div class="card mb-3">
             <div class="card-body">
@@ -156,7 +146,7 @@
             </div>
           </div>
         </a>
-      </div>
+      </div> -->
       <div class="col-md-4">
         <a href="./admin/reports/generateReports.php" class="card-link">
           <div class="card mb-3">
