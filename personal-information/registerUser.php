@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Execute the statement
                     if ($stmt->execute()) {
                         $_SESSION['userCreatedMessage'] = 'User added. Please login below';
+                        header('Location: ../login.php');
                         echo "User Added";
                     } else {
                         $error_message = "Error: " . $stmt->error;
