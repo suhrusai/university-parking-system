@@ -59,7 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_vehicle'])) {
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="../../assets/university_of_utah_logo.png" width="30px" alt="Logo"> Parking Management</a>
+        <a class="navbar-brand" href="#">
+            <img src="../assets/university_of_utah_logo.png" width="30px" alt="Logo"> Parking Management
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -69,11 +71,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_vehicle'])) {
                     <a class="nav-link" href="#">Home</a>
                 </li>
             </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Logout</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
-<div class="container card-section">
+
+<div class="container card-section mt-5 pt-5">
     <h2>Edit Vehicle</h2>
     <form method="POST" action="editVehicle.php">
         <input type="hidden" name="vehicle_id" value="<?php echo $vehicle['Vehicle_ID']; ?>">

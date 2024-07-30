@@ -49,7 +49,7 @@ $stmt->close();
         </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container mt-5 pt-5">
         <h2>Vehicle Details</h2>
         <div class="mb-3">
             <a class="btn btn-secondary" href="../homepage.php">Back</a>
