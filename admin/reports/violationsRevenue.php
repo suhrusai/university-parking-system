@@ -4,35 +4,55 @@ require_once "../../authentication/isAuthenticated.php";
 //checkAuthentication('../../login.php');
 //$userId = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
 
-// Fetch outstanding violations information from the database
-$stmt = $conn->prepare("select *
-    from (
-    select concat(d.First_Name, ' ', d.Last_Name) as Driver,
-        vt.Violation_Name as Violation,
-        v.Datetime as Occurred,
-        vt.Penalty_Amount as Fine,
-        @paid := case when p.Amount is null then 0 else p.Amount end as Paid, 
-        @remaining := vt.Penalty_Amount - @paid as Remaining
+// Fetch distinct months that have violations
+$stmt = $conn->prepare("
+    select distinct(DATE_SUB(LAST_DAY(v.Datetime), INTERVAL DAY(LAST_DAY(v.Datetime)) - 1 DAY)) AS Occurred_Month
     from violation as v
     join violation_type as vt on v.Violation_Type_ID = vt.Violation_Type_ID
     left join payment as p on v.Payment_ID = p.Payment_ID
-    left join vehicle as c on v.Vehicle_ID = c.Vehicle_ID
-    left join driver as d on c.Driver_ID = d.Driver_ID
-    ) as qry_a
-    where Remaining > 0");
+    order by Occurred_Month");
+$stmt->execute();
+$months = $stmt->get_result();
+$stmt->close();
+
+$last_month = null;
+while ($row = $months->fetch_assoc()): 
+    $last_month = $row['Occurred_Month'];
+endwhile;
+
+// Fetch violations information from the database
+if(isset($_POST['report_month'])){
+    $qry_month = $_POST['report_month'];
+} else {
+    $qry_month = $last_month;
+}
+
+$stmt = $conn->prepare("
+    select Violation,
+        sum(Paid) as Revenue
+    from (
+        select 
+            vt.Violation_Name as Violation,
+            DATE_SUB(LAST_DAY(v.Datetime), INTERVAL DAY(LAST_DAY(v.Datetime)) - 1 DAY) AS Occurred_Month,
+            @paid := case when p.Amount is null then 0 else p.Amount end as Paid
+        from violation as v
+        join violation_type as vt on v.Violation_Type_ID = vt.Violation_Type_ID
+        left join payment as p on v.Payment_ID = p.Payment_ID
+        ) as qry_a
+    where Occurred_Month = ?
+    group by Violation
+    order by Violation");
+$stmt->bind_param("s",$qry_month);
 $stmt->execute();
 $result = $stmt->get_result();
 $violations = [];
 $totalFine = 0;
-$totalPaid = 0;
-$totalRemaining = 0;
 while($row = $result->fetch_assoc()){
     $violations[] = $row;
-    $totalFine += $row['Fine'];
-    $totalPaid += $row['Paid'];
-    $totalRemaining += $row['Remaining'];
+    $totalFine += $row['Revenue'];
 }
 $stmt->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,45 +88,46 @@ $stmt->close();
         </div>
     </nav>
     <div class="container mt-5">
-        <h2>Outstanding Violations Report</h2>
+        
+        <h2>Revenue from Violations - <?php echo (new DateTime($qry_month))->format('M Y') ?></h2>
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Driver</th>
                         <th>Violation</th>
-                        <th>Occurred</th>
                         <th>Fine</th>
-                        <th>Paid</th>
-                        <th>Remaining</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($violations)): ?>
                         <tr>
-                            <td colspan="6" class="text-center">There are currently no outstanding violations.</td>
+                            <td colspan="2" class="text-center">There are currently no violations for this period.</td>
                         </tr>
                     <?php else: ?>
                         <?php foreach ($violations as $violation): ?>
                             <tr>
-                                <td><b><?php echo $violation['Driver']; ?></b></td>
                                 <td><?php echo $violation['Violation']; ?></td>
-                                <td><?php echo (new DateTime($violation['Occurred']))->format('Y-m-d H:i:s'); ?></td>
-                                <td>$<?php echo $violation['Fine']; ?></td>
-                                <td>$<?php echo $violation['Paid']; ?></td>
-                                <td>$<?php echo $violation['Remaining']; ?>.00</td>
+                                <td>$<?php echo $violation['Revenue']; ?></td>
                             </tr>
                         <?php endforeach; ?>
                         <tr>
-                            <td colspan="3" class="text-end"><strong>Total</strong></td>
+                            <td class="text-end"><strong>Total</strong></td>
                             <td><strong>$<?php echo number_format($totalFine, 2); ?></strong></td>
-                            <td><strong>$<?php echo number_format($totalPaid, 2); ?></strong></td>
-                            <td><strong>$<?php echo number_format($totalRemaining, 2); ?></strong></td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
         </div>
+        <p>&nbsp;</p>
+        <form method="POST" action="violationsRevenue.php">
+            <label for="report_month">Select a month for a new report:</label>
+            <select name="report_month" id="report_month">
+                <?php foreach ($months as $row): ?>
+                    <option value="<?= htmlspecialchars($row['Occurred_Month']) ?>"><?= htmlspecialchars($row['Occurred_Month']) ?></option>
+                <?php endforeach; ?>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
