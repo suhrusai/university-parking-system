@@ -1,13 +1,11 @@
 <?php
-require_once "../../authentication/isAuthenticated.php";
+$roles = Array("Admin");
 require_once "../../dbConfig.php";
+require_once "../../authentication/isAuthenticated.php";
+require_once "../../authentication/checkAutorization.php";
 checkAuthentication('../../login.php');
+checkAuthorization("../../unautorized.php",$roles);
 
-// Check if the logged-in user is an admin
-if ($_SESSION['role'] !== 'Admin') {
-    header("Location: ../index.php");
-    exit();
-}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_violation'])) {
     $violationId = $_POST['violation_id'];

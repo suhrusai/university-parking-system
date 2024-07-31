@@ -1,13 +1,10 @@
 <?php
+$roles = Array("Admin");
 require_once "../../authentication/isAuthenticated.php";
+require_once "../../authentication/checkAutorization.php";
 require_once "../../dbConfig.php";
 checkAuthentication('../../login.php');
-
-// Check if the logged-in user is an admin
-if ($_SESSION['role'] !== 'Admin') {
-    header("Location: ../index.php");
-    exit();
-}
+checkAuthorization("../../unautorized.php",$roles);
 
 // Fetch all drivers for the dropdown
 $query = "SELECT Driver_ID, First_Name, Last_Name FROM driver";
@@ -55,12 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="../../homepage.php">Home</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
+                        <a class="nav-link" href="../../logout.php">Logout</a>
                     </li>
                 </ul>
             </div>

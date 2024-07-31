@@ -2,7 +2,9 @@
 $roles = Array("Admin","User","Faculty","Guest");
 require_once "../dbConfig.php";
 require_once "../authentication/isAuthenticated.php";
+require_once "../authentication/checkAutorization.php";
 checkAuthentication('../login.php');
+checkAuthorization("../unautorized.php",$roles);
 
 $userId = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
 
@@ -42,14 +44,19 @@ $stmt->close();
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
-            </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../homepage.php">Home</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../logout.php">Logout</a>
+                    </li>
             </ul>
         </div>
         </div>
     </nav>
-    <div class="container mt-5 pt-5">
+    <div class="container mt-2">
         <h2>Vehicle Details</h2>
         <div class="mb-3">
             <a class="btn btn-secondary" href="../homepage.php">Back</a>

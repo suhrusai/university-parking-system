@@ -2,7 +2,9 @@
 $roles = Array("Admin","User","Faculty","Guest");
 include_once '../dbConfig.php';
 require_once "../authentication/isAuthenticated.php";
+require_once "../authentication/checkAutorization.php";
 checkAuthentication('../login.php');
+checkAuthorization("../unautorized.php",$roles);
 
 $vehicleId = isset($_GET['vehicle_id']) ? $_GET['vehicle_id'] : null;
 
@@ -55,16 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
-                </li>
-            </ul>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link" href="../homepage.php">Home</a>
+                  </li>
+              </ul>
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="../logout.php">Logout</a>
+                  </li>
+              </ul>
         </div>
     </div>
 </nav>
