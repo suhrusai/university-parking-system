@@ -1,7 +1,10 @@
 <?php
 $roles = Array("Admin","User","Faculty","Guest");
 include_once '../dbConfig.php';
-
+require_once "../authentication/isAuthenticated.php";
+require_once "../authentication/checkAutorization.php";
+checkAuthentication('../login.php');
+checkAuthorization("../unautorized.php",$roles);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userId = $_POST['user_id'];
 

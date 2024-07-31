@@ -1,7 +1,10 @@
 <?php
+$roles = Array("Admin","User","Faculty","Guest");
+include_once '../dbConfig.php';
 require_once "../authentication/isAuthenticated.php";
-require_once "../dbConfig.php";
+require_once "../authentication/checkAutorization.php";
 checkAuthentication('../login.php');
+checkAuthorization("../unautorized.php",$roles);
 
 // Fetch payments for the logged-in user
 $userId = $_SESSION['user_id']; // assuming the user's ID is stored in the session
@@ -56,16 +59,22 @@ $resultCompleted = $stmtCompleted->get_result();
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-            </ul>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link" href="../homepage.php">Home</a>
+                  </li>
+              </ul>
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="../logout.php">Logout</a>
+                  </li>
+              </ul>
         </div>
     </div>
 </nav>
 
-<div class="container card-section mt-5 pt-5">
+<div class="container card-section mt-5 pt-4">
+  <a href="../homepage.php" class="btn btn-secondary">Back</a>
     <h2>Pending Payments</h2>
     <div class="row">
       <?php if ($resultPending->num_rows > 0): ?>

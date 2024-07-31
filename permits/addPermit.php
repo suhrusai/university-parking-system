@@ -2,10 +2,13 @@
 $roles = Array("Admin","User","Faculty","Guest");
 include_once '../dbConfig.php';
 require_once "../authentication/isAuthenticated.php";
+require_once "../authentication/checkAutorization.php";
 checkAuthentication('../login.php');
-
+checkAuthorization("../unautorized.php",$roles);
 $userId = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
-
+echo "<script>alert('$userId')</script>";
+// Debugging: Check values of userId and vehiclePlate
+error_log("userId: " . $userId);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $permitType = trim($_POST['permitType']);
     $vehiclePlate = trim($_POST['vehiclePlate']);
@@ -13,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $expiryDate = $_POST['expiryDate'];
     $cost = $_POST['cost'];
 
-    // Check if the vehicle exists
     $stmt = $conn->prepare("SELECT Vehicle_ID FROM vehicle WHERE LOWER(License_Plate) = LOWER(?) AND Driver_ID = ?");
     $stmt->bind_param("si", $vehiclePlate, $userId);
     $stmt->execute();
@@ -52,7 +54,7 @@ $stmt->close();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <title>Add Permit</title>
 </head>
 <body>
@@ -65,16 +67,16 @@ $stmt->close();
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Home</a>
-                  </li>
-              </ul>
-              <ul class="navbar-nav">
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Logout</a>
-                  </li>
-              </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../homepage.php">Home</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../logout.php">Logout</a>
+                    </li>
+            </ul>
           </div>
       </div>
   </nav>
@@ -127,6 +129,6 @@ $stmt->close();
       </div>
     </form>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,13 +1,10 @@
 <?php
+$roles = Array("Admin");
 require_once "../../authentication/isAuthenticated.php";
+require_once "../../authentication/checkAutorization.php";
 require_once "../../dbConfig.php";
 checkAuthentication('../../login.php');
-
-// Check if the logged-in user is an admin
-if ($_SESSION['role'] !== 'Admin') {
-    header("Location: ../index.php");
-    exit();
-}
+checkAuthorization("../../unautorized.php",$roles);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_vehicle'])) {
     $vehicleId = $_POST['vehicle_id'];

@@ -1,5 +1,4 @@
 <?php
-$roles = Array("Admin","User","Faculty","Guest");
 include_once '../dbConfig.php';
 include_once '../authentication/hashPassword.php';
 
