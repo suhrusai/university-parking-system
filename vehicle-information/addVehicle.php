@@ -4,7 +4,7 @@ include_once '../dbConfig.php';
 require_once "../authentication/isAuthenticated.php";
 require_once "../authentication/checkAutorization.php";
 checkAuthentication('../login.php');
-checkAuthorization("../unautorized.php",$roles);
+checkAuthorization("../unauthorized.php",$roles);
 
 $userId = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
 
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="../assets/university_of_utah_logo.png" width="30px" alt="Logo"> Parking Management
+            <img src="../../assets/university_of_utah_logo.png" width="30px" alt="Logo"> Parking Management
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

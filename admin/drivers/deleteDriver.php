@@ -5,7 +5,7 @@ require_once "../../authentication/isAuthenticated.php";
 require_once "../../authentication/checkAutorization.php";
 require_once "../../dbConfig.php";
 checkAuthentication('../../login.php');
-checkAuthorization("../../unautorized.php",$roles);
+checkAuthorization("../../unauthorized.php",$roles);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_driver'])) {
     $driverId = $_POST['driver_id'];

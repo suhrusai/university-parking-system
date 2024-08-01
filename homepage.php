@@ -42,12 +42,12 @@
           <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                      <a class="nav-link" href="../homepage.php">Home</a>
+                      <a class="nav-link" href="./homepage.php">Home</a>
                   </li>
               </ul>
               <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="../logout.php">Logout</a>
+                      <a class="nav-link" href="./logout.php">Logout</a>
                   </li>
               </ul>
           </div>

@@ -5,7 +5,7 @@ require_once "../../dbConfig.php";
 require_once "../../authentication/isAuthenticated.php";
 require_once "../../authentication/checkAutorization.php";
 checkAuthentication('../../login.php');
-checkAuthorization("../../unautorized.php",$roles);
+checkAuthorization("../../unauthorized.php",$roles);
 // Fetch all vehicles
 $query = "
     SELECT v.Vehicle_ID, v.Driver_ID, v.License_Plate, v.Make, v.Model, v.Color, v.Year,
@@ -26,7 +26,7 @@ $vehiclesResult = $conn->query($query);
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="../assets/university_of_utah_logo.png" width="30px" alt="Logo"> Parking Management
+            <img src="../../assets/university_of_utah_logo.png" width="30px" alt="Logo"> Parking Management
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
