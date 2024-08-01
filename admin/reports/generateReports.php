@@ -45,7 +45,7 @@ checkAuthorization("../../unauthorized.php",$roles);
     </div>
 </nav>
 
-    <div class="container mt-5 pt-5">
+    <div class="container mt-2">
         <h2>Generate Reports</h2>
         <p><a href="violationsReport.php">Outstanding Violations</a></p>
         <p><a href="violationsRevenue.php">Revenue from Violations</a></p>

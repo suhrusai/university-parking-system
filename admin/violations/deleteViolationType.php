@@ -7,9 +7,9 @@ checkAuthentication('../../login.php');
 checkAuthorization("../../unauthorized.php",$roles);
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['violation_id'])) {
-    $violationId = $_POST['violation_id'];
-    $deleteQuery = "DELETE FROM violation WHERE Violation_ID = ?";
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['violation_type_id'])) {
+    $violationId = $_POST['violation_type_id'];
+    $deleteQuery = "DELETE FROM violation_type WHERE Violation_Type_ID = ?";
     $stmt = $conn->prepare($deleteQuery);
     $stmt->bind_param("i", $violationId);
     if ($stmt->execute()) {

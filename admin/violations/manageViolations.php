@@ -1,5 +1,4 @@
 <?php
-// session_start();
 $roles = Array("Admin");
 require_once "../../dbConfig.php";
 require_once "../../authentication/isAuthenticated.php";

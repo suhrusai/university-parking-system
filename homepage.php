@@ -125,16 +125,6 @@
         </a>
       </div>
       <div class="col-md-4">
-        <a href="./admin/permits/managePermits.php" class="card-link">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title"><i class="bi bi-card-checklist card-icon"></i>Manage Permits</h5>
-              <p class="card-text">View, update, add, or delete permits.</p>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-4">
         <a href="./admin/violations/manageViolations.php" class="card-link">
           <div class="card mb-3">
             <div class="card-body">
@@ -144,16 +134,6 @@
           </div>
         </a>
       </div>
-      <!-- <div class="col-md-4">
-        <a href="./admin/parking/manageParking.php" class="card-link">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title"><i class="bi bi-house-door card-icon"></i>Manage Parking</h5>
-              <p class="card-text">View, update, add, or delete parking lots and spaces.</p>
-            </div>
-          </div>
-        </a>
-      </div> -->
       <div class="col-md-4">
         <a href="./admin/reports/generateReports.php" class="card-link">
           <div class="card mb-3">

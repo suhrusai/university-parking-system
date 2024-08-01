@@ -100,7 +100,7 @@ $stmt->close();
         </div>
     </nav>
 
-    <div class="container mt-5 pt-5">
+    <div class="container mt-2">
         
         <h2>Revenue from Permits - <?php echo (new DateTime($qry_month))->format('M Y') ?></h2>
         <div class="table-responsive">

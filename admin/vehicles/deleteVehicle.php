@@ -6,7 +6,7 @@ require_once "../../dbConfig.php";
 checkAuthentication('../../login.php');
 checkAuthorization("../../unauthorized.php",$roles);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_vehicle'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['vehicle_id'])) {
     $vehicleId = $_POST['vehicle_id'];
     $deleteQuery = "DELETE FROM vehicle WHERE Vehicle_ID = ?";
     $stmt = $conn->prepare($deleteQuery);

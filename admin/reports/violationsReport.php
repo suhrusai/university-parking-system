@@ -79,7 +79,7 @@ $stmt->close();
         </div>
     </nav>
 
-    <div class="container mt-5 pt-5">
+    <div class="container mt-2">
         <h2>Outstanding Violations Report</h2>
         <div class="table-responsive">
             <table class="table table-striped table-bordered">

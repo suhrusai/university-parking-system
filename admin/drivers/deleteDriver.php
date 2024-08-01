@@ -1,9 +1,8 @@
 <?php
-session_start();
+require_once "../../dbConfig.php";
 $roles = Array("Admin");
 require_once "../../authentication/isAuthenticated.php";
 require_once "../../authentication/checkAutorization.php";
-require_once "../../dbConfig.php";
 checkAuthentication('../../login.php');
 checkAuthorization("../../unauthorized.php",$roles);
 
